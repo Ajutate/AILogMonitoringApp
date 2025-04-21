@@ -1,0 +1,11 @@
+
+---
+
+### ✅ `requirements.txt`
+
+```txt
+streamlit
+langchain
+langchain-community
+chromadb
+uuid
