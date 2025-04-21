@@ -1,8 +1,7 @@
 # === rag_chain.py ===
 from langchain.prompts import PromptTemplate
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import OllamaEmbeddings
-from langchain_community.llms import Ollama
+from langchain_chroma import Chroma
+from langchain_ollama import OllamaEmbeddings, OllamaLLM
 from langchain.chains import RetrievalQA
 
 def get_qa_chain():
@@ -17,7 +16,6 @@ You can perform tasks such as:
 - Summarizing key events over a period
 - Identifying the root cause of issues
 - Show logs only if it is present and supports the answer
-- If there is **no relevant log data**, clearly state: "No matching log entries found for your query."                                         
 
 Question: {question}
 Log Data:
@@ -28,9 +26,9 @@ Your Answer:
 
 
     embedding = OllamaEmbeddings(model="mxbai-embed-large")
-    vectordb = Chroma(persist_directory="./chroma_logs2", embedding_function=embedding)
+    vectordb = Chroma(persist_directory="./chroma_logs", embedding_function=embedding)
     retriever = vectordb.as_retriever(search_kwargs={"k": 20})
-    llm = Ollama(model="llama3.2")
+    llm = OllamaLLM(model="llama3.2")
     #print("Vector store built and persisted successfully.")
     return RetrievalQA.from_chain_type(
         llm=llm,

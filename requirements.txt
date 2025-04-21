@@ -9,3 +9,5 @@ langchain
 langchain-community
 chromadb
 uuid
+langchain-ollama
+langchain-chroma
