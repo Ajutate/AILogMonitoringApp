@@ -2,6 +2,7 @@
 import re
 from langchain.schema import Document
 import uuid
+from datetime import datetime
 # Finalized regex pattern
 log_regex = re.compile(r"""
     ^(?P<timestamp>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})          # Timestamp
@@ -27,12 +28,17 @@ def parse_log_entry(entry: str):
     exception = match.group("exception").strip() if match.group("exception") else ""
 
     full_content = f"{message}\n{exception}" if exception else message
-
+    timestamp_str = timestamp  # Normalize for parsing
+    try:
+        ts_obj = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
+    except ValueError:
+        ts_obj = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
     return Document(
-        page_content=full_content,
+        page_content=entry.strip(),
         metadata={
             "id": str(uuid.uuid4()),
             "timestamp": timestamp,
+            "timestamp_iso": ts_obj.isoformat(),
             "level": level,
             "component": component,
             "message": message,
