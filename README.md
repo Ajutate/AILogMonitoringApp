@@ -9,9 +9,7 @@ This is a Streamlit-based AI-powered log monitoring application. It allows users
 
 - Log ingestion with regex-based parsing.
 - Metadata extraction (timestamp, level, component, UUID).
-- Time-based filtering (e.g., "last 24 hours").
 - Query answering using RAG (Retrieval-Augmented Generation) with LLaMA3.
-- Graceful fallback when relevant logs are not found.
 
 ---
 
