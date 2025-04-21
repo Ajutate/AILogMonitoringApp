@@ -25,7 +25,7 @@ This is a Streamlit-based AI-powered log monitoring application. It allows users
 ```bash
 pip install -r requirements.txt
 
-Make sure you have Ollama installed and models like llama3 and mxbai-embed-large pulled
+Make sure you have Ollama installed and models like llama3.2 and mxbai-embed-large pulled
 
 ### 2. Build Vector Store
 python vector_store.py
